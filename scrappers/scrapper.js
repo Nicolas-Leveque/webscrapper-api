@@ -5,7 +5,6 @@ const res = require('express/lib/response');
 
 exports.leMonde = async (req, res) => {
 
-  console.log('test1')
   try {
     const url = 'https://www.lemonde.fr/';
     axios(url)
