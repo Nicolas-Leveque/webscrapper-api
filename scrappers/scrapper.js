@@ -17,15 +17,17 @@ exports.leMonde = async (req, res) => {
           const url = $(this).find('a').attr('href')
           const image = $(this).find('img').attr('src')
 
-          result.push({
-            title,
-            url,
-            image
-          })
+          if (url && title !== '' || undefined) {
+            result.push({
+              title,
+              url: 'https://www.lemonde.fr' + url,
+              image
+            })
+          }
 
         })
-        const articles = result.filter(article => article.url && article.title !== '' || undefined)
-        res.status(200).send(articles)
+        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
+        res.status(200).send(result)
       })
   } catch (e) {
     res.status(400).send('error')
@@ -46,14 +48,16 @@ exports.bfmtv = (req, res) => {
           const url = $(this).find('a').attr('href')
           const image = $(this).find('img').attr('src')
 
-          result.push({
-            title,
-            url,
-            image
-          })
+          if (url && title !== '' || undefined) {
+            result.push({
+              title,
+              url: 'https://www.bfmtv.com' + url,
+              image
+            })
+          }
         })
-        const articles = result.filter(article => article.url && article.title !== '' || undefined)
-        res.status(200).send(articles)
+        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
+        res.status(200).send(result)
       })
   } catch (e) {
     console.log(e)
@@ -75,15 +79,17 @@ exports.vingtMinutes = (req, res) => {
           const url = $(this).find('a').attr('href')
           const image = $(this).find('img').attr('src')
 
-          result.push({
-            title,
-            url,
-            image
-          })
+          if (url && title !== '' || undefined) {
+            result.push({
+              title,
+              url: 'https://www.20minutes.fr' + url,
+              image
+            })
+          }
 
         })
-        const articles = result.filter(article => article.url && article.title !== '' || undefined)
-        res.status(200).send(articles)
+        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
+        res.status(200).send(result)
       })
   } catch (e) {
     res.status(400).send(e)
