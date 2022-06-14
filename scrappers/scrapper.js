@@ -16,7 +16,7 @@ exports.leMonde = async (req, res) => {
           const title = $(this).find('p').text()
           const url = $(this).find('a').attr('href')
           const image = $(this).find('img').attr('src')
-          console.log(image)
+
 
           if (url && title !== '' || undefined) {
             result.push({
