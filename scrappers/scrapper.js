@@ -115,7 +115,7 @@ exports.leFigaro = (req, res) => {
           if (url && title !== '' || undefined) {
             result.push({
               title,
-              url: 'https://www.lefigaro.fr/' + url,
+              url,
               image
             })
           }
