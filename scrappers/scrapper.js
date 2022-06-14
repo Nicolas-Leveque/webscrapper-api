@@ -15,12 +15,13 @@ exports.leMonde = async (req, res) => {
         $('.article', html).each(function () {
           const title = $(this).find('p').text()
           const url = $(this).find('a').attr('href')
-          const image = $(this).find('img').attr('src')
+          const image = $(this).find('img').attr('srcset')
+          console.log(image)
 
           if (url && title !== '' || undefined) {
             result.push({
               title,
-              url: 'https://www.lemonde.fr' + url,
+              url,
               image
             })
           }
@@ -83,6 +84,37 @@ exports.vingtMinutes = (req, res) => {
             result.push({
               title,
               url: 'https://www.20minutes.fr' + url,
+              image
+            })
+          }
+
+        })
+        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
+        res.status(200).send(result)
+      })
+  } catch (e) {
+    res.status(400).send(e)
+  }
+}
+
+exports.leFigaro = (req, res) => {
+
+  try {
+    const url = 'https://www.lefigaro.fr/';
+    axios(url)
+      .then(response => {
+        const html = response.data
+        const $ = cheerio.load(html);
+        const result = [];
+        $('article', html).each(function () {
+          const title = $(this).find('h2').text()
+          const url = $(this).find('a').attr('href')
+          const image = $(this).find('img').attr('src')
+
+          if (url && title !== '' || undefined) {
+            result.push({
+              title,
+              url: 'https://www.lefigaro.fr/' + url,
               image
             })
           }
