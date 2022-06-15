@@ -173,3 +173,35 @@ exports.franceTV = (req, res) => {
     res.status(400).send(e)
   }
 }
+
+exports.france24 = async (req, res) => {
+
+  try {
+    const url = 'https://www.france24.com/fr/';
+    axios(url)
+      .then(response => {
+        const html = response.data
+        const $ = cheerio.load(html);
+        const result = [];
+        $('.m-item-list-article', html).each(function () {
+          const title = $(this).find('p').text()
+          const url = $(this).find('a').attr('href')
+          let image = $(this).find('img').attr('src')
+          if (!image || !image.match(/^http/g)) {
+            image = "https://i.goopics.net/pwb903.jpg"
+          }
+          if (url && title !== '' || undefined) {
+            result.push({
+              title,
+              url: 'https://www.france24.com' + url,
+              image
+            })
+          }
+
+        })
+        res.status(200).send(result)
+      })
+  } catch (e) {
+    res.status(400).send('error')
+  }
+}
