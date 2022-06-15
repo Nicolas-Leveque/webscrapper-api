@@ -7,5 +7,6 @@ router.get('/lemonde', scrapCtrl.leMonde);
 router.get('/bfmtv', scrapCtrl.bfmtv);
 router.get('/20minutes', scrapCtrl.vingtMinutes);
 router.get('/lefigaro', scrapCtrl.leFigaro);
+router.get('/franceTV', scrapCtrl.franceTV)
 
 module.exports = router

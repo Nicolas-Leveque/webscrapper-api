@@ -15,10 +15,10 @@ exports.leMonde = async (req, res) => {
         $('.article', html).each(function () {
           const title = $(this).find('p').text()
           const url = $(this).find('a').attr('href')
-          const image = $(this).find('img').attr('src')
-
-
-
+          let image = $(this).find('img').attr('src')
+          if (!image) {
+            image = "https://i.goopics.net/ixl813.jpg"
+          }
           if (url && title !== '' || undefined) {
             result.push({
               title,
@@ -28,7 +28,6 @@ exports.leMonde = async (req, res) => {
           }
 
         })
-        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
         res.status(200).send(result)
       })
   } catch (e) {
@@ -48,8 +47,10 @@ exports.bfmtv = (req, res) => {
         $('article', html).each(function () {
           const title = $(this).find('a').attr('title')
           const url = $(this).find('a').attr('href')
-          const image = $(this).find('img').attr('src')
-
+          let image = $(this).find('img').attr('src')
+          if (!image) {
+            image = "https://i.goopics.net/2zuepf.jpg"
+          }
           if (url && title !== '' || undefined) {
             result.push({
               title,
@@ -58,7 +59,6 @@ exports.bfmtv = (req, res) => {
             })
           }
         })
-        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
         res.status(200).send(result)
       })
   } catch (e) {
@@ -78,19 +78,24 @@ exports.vingtMinutes = (req, res) => {
         const result = [];
         $('article', html).each(function () {
           const title = $(this).find('h2').text()
-          const url = $(this).find('a').attr('href')
-          const image = $(this).find('img').attr('src')
+          let url = $(this).find('a').attr('href')
+          let image = $(this).find('img').attr('src')
+          if (!image || !image.match(/^http/g)) {
+            image = "https://i.goopics.net/6hfdkb.jpg"
+          }
+          if (!url.match(/^http/g)) {
+            url = 'https://www.20minutes.fr' + url
+          }
 
           if (url && title !== '' || undefined) {
             result.push({
               title,
-              url: 'https://www.20minutes.fr' + url,
+              url,
               image
             })
           }
 
         })
-        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
         res.status(200).send(result)
       })
   } catch (e) {
@@ -109,9 +114,14 @@ exports.leFigaro = (req, res) => {
         const result = [];
         $('article', html).each(function () {
           const title = $(this).find('h2').text()
-          const url = $(this).find('a').attr('href')
-          const image = $(this).find('img').attr('src')
-
+          let url = $(this).find('a').attr('href')
+          let image = $(this).find('img').attr('src')
+          if (!image) {
+            image = "https://i.goopics.net/927yly.jpg"
+          }
+          if (!url.match(/^http/g)) {
+            url = 'https://www.20minutes.fr' + url
+          }
           if (url && title !== '' || undefined) {
             result.push({
               title,
@@ -121,7 +131,42 @@ exports.leFigaro = (req, res) => {
           }
 
         })
-        // const articles = result.filter(article => article.url && article.title !== '' || undefined)
+        res.status(200).send(result)
+      })
+  } catch (e) {
+    res.status(400).send(e)
+  }
+}
+
+exports.franceTV = (req, res) => {
+
+  try {
+    const url = 'https://www.francetvinfo.fr/';
+    axios(url)
+      .then(response => {
+        const html = response.data
+        const $ = cheerio.load(html);
+        const result = [];
+        $('article', html).each(function () {
+          const title = $(this).find('a.title').text()
+          let url = $(this).find('a.title').attr('href')
+          let image = $(this).find('img').attr('src')
+          if (!image || !image.match(/^http/g)) {
+            image = "https://i.goopics.net/ty031d.png"
+          }
+
+          if (url && title !== '' || undefined) {
+            if (!url.match(/^http/g)) {
+              url = 'https://www.francetvinfo.fr' + url
+            }
+            result.push({
+              title,
+              url,
+              image
+            })
+          }
+
+        })
         res.status(200).send(result)
       })
   } catch (e) {
