@@ -2,8 +2,11 @@
 
 Créé pour faciliter une veille informationnelle non technique, 'My first webscrap' est une api qui va aller chercher sur les pages d'accueil des sites suivant:
   - Lemonde.fr
-  - bfmtv.com
   - 20minutes.fr
+  - bfmtv.com
+  - lefigaro.fr
+  - frqancetvinfo.com
+  - france24.com
 
 Cette liste est temporaire et d'autres site seront ajouter à la liste ultérieurement.
 
