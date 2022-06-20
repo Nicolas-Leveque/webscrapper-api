@@ -148,13 +148,12 @@ exports.franceTV = (req, res) => {
         const $ = cheerio.load(html);
         const result = [];
         $('article', html).each(function () {
-          const title = $(this).find('a.title').text()
-          let url = $(this).find('a.title').attr('href')
+          const title = $(this).find('.title').text()
+          let url = $(this).find('a').attr('href')
           let image = $(this).find('img').attr('src')
           if (!image || !image.match(/^http/g)) {
             image = "https://i.goopics.net/ty031d.png"
           }
-
           if (url && title !== '' || undefined) {
             if (!url.match(/^http/g)) {
               url = 'https://www.francetvinfo.fr' + url
